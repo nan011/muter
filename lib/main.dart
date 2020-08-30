@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:muter/App/Home/Home.dart';
-import 'package:muter/App/Chat/Chat.dart';
-import 'package:muter/App/TrainNotification/TrainNotification.dart';
+import 'package:muter/App/Splash/Splash.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,9 +35,8 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ))),
         routes: <String, WidgetBuilder>{
-          '/': (BuildContext context) => Home(),
-          '/AlarmMe': (BuildContext context) => TrainNotification(),
-          '/Chat': (BuildContext context) => Chat(),
+          '/': (BuildContext context) => Splash(),
+          '/Home': (BuildContext context) => Home(),
         },
       ),
     );
