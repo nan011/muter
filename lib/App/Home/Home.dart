@@ -221,21 +221,9 @@ class FloatingFooter extends StatelessWidget {
                           iconPath: 'assets/icons/chat.svg',
                           name: tr('bottombar_chat_name'),
                           onTap: () {
-                            Scaffold.of(context)
-                              ..removeCurrentSnackBar()
-                              ..showSnackBar(
-                                SnackBar(
-                                  action: SnackBarAction(
-                                    label: "Close",
-                                    onPressed: () {},
-                                  ),
-                                  content: Text(tr("alert_unavailable")),
-                                ),
-                              );
-                            // TODO: Unhide these codes when chat feature has been available
-                            // HomeModel model =
-                            //     Provider.of<HomeModel>(context, listen: false);
-                            // model.currentPageIndex = 2;
+                            HomeModel model =
+                                Provider.of<HomeModel>(context, listen: false);
+                            model.currentPageIndex = 2;
                           },
                         ),
                       ),

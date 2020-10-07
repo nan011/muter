@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muter/commons/helper/helper.dart';
+import 'package:muter/commons/widgets/GroupListTitle/GroupListTitle.dart';
 
 class GroupList extends StatefulWidget {
   final String title;
@@ -90,28 +90,8 @@ class _GroupListState extends State<GroupList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Title
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.title,
-                style: TextStyle(
-                  color: AppColor.black(1),
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 4,
-                ),
-              ),
-              SvgPicture.asset(
-                'assets/arts/title-bar.svg',
-                height: 2,
-              )
-            ],
+          GroupListTitle(
+            title: widget.title,
           ),
           // Body
           Container(

@@ -41,6 +41,7 @@ dependencies:
   flutter_local_notifications: 1.4.4+4
   shared_preferences: 0.5.10
   sprintf: 4.1.0
+  keyboard_visibility: 0.5.6
 
 
 dev_dependencies:
