@@ -8,6 +8,7 @@ import 'package:muter/App/Home/widgets/Chat/Chat.dart';
 import 'package:muter/commons/helper/helper.dart';
 import 'package:muter/commons/widgets/Avatar/Avatar.dart';
 import 'package:muter/commons/widgets/Header/Header.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class GroupChat extends StatefulWidget {
   @override
@@ -19,33 +20,52 @@ class _GroupChatState extends State<GroupChat> {
   Widget chatBox;
   Query collection;
   QueryDocumentSnapshot firstChatDoc;
+  ScrollController scrollController;
+  RefreshController refreshController;
+  bool stopToPullUp;
+  bool ableToSend;
 
-  static const int NUMBER_OF_EACH_FETCH = 100;
+  static const int NUMBER_OF_EACH_FETCH = 50;
 
   @override
   void initState() {
     super.initState();
     chatInputController = TextEditingController(text: "");
+    scrollController = ScrollController();
+    refreshController = RefreshController();
+    stopToPullUp = false;
+    ableToSend = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setupFirestore();
     });
   }
 
   Future setupFirestore() async {
-    await Firebase.initializeApp();
+    if (Firebase.apps.length == 0) {
+      await Firebase.initializeApp();
+    }
     final GroupChatArguments args = ModalRoute.of(context).settings.arguments;
     collection =
         FirebaseFirestore.instance.collection(args.id).orderBy("created_at");
     setChatBox();
   }
 
+  @override
+  void dispose() {
+    chatInputController.dispose();
+    scrollController.dispose();
+    refreshController.dispose();
+    super.dispose();
+  }
+
   Future setChatBox([bool shouldFetchNext = false]) async {
-    if (collection == null) {
+    if (stopToPullUp || collection == null) {
       return;
     }
 
     Stream<QuerySnapshot> chatStream;
     QuerySnapshot tempSnapshot = await collection.get();
+    QueryDocumentSnapshot firstDocInCollection = tempSnapshot.docs[0];
     if (tempSnapshot.size > 0) {
       if (shouldFetchNext && firstChatDoc != null) {
         tempSnapshot = await collection
@@ -60,11 +80,17 @@ class _GroupChatState extends State<GroupChat> {
 
       firstChatDoc = tempSnapshot.docs[0];
       chatStream = collection.startAtDocument(firstChatDoc).snapshots();
+
+      if (firstChatDoc.id == firstDocInCollection.id) {
+        stopToPullUp = true;
+      }
     } else {
       chatStream = collection.snapshots();
+      stopToPullUp = true;
     }
 
     chatStream.listen((QuerySnapshot snapshot) {
+      print(stopToPullUp);
       List<Widget> messages = snapshot.docs
           .map((DocumentSnapshot document) {
             String id = document.id;
@@ -95,15 +121,24 @@ class _GroupChatState extends State<GroupChat> {
             ];
           })
           .expand((i) => i)
+          .toList()
+          .reversed
           .toList();
-      Widget chatBox = RefreshIndicator(
-        onRefresh: () async {
-          if (tempSnapshot.size > 1) {
-            await setChatBox(true);
-          }
+      Widget chatBox = SmartRefresher(
+        enablePullUp: !stopToPullUp,
+        enablePullDown: false,
+        controller: refreshController,
+        onLoading: () async {
+          await setChatBox(true);
+          refreshController.loadComplete();
+        },
+        onRefresh: () {
+          refreshController.refreshCompleted();
         },
         child: messages.length > 0
             ? ListView.builder(
+                reverse: true,
+                controller: scrollController,
                 padding: const EdgeInsets.symmetric(
                   vertical: 24,
                   horizontal: 16,
@@ -128,9 +163,12 @@ class _GroupChatState extends State<GroupChat> {
                 ),
               ),
       );
-      setState(() {
-        this.chatBox = chatBox;
-      });
+
+      if (mounted) {
+        setState(() {
+          this.chatBox = chatBox;
+        });
+      }
     });
   }
 

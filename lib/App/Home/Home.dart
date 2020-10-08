@@ -127,16 +127,19 @@ class _NameState extends State<Name> {
       await this.prefs.setString(ICON_NAME, icon.name);
     }
 
-    setAccount(name, icon);
+    setAccount(name: name, icon: icon);
   }
 
-  void setAccount(String name, AvatarIcon icon) {
-    Account.name = name;
-    Account.icon = icon;
+  void setAccount({
+    String name,
+    AvatarIcon icon,
+  }) {
+    Account.name = name ?? Account.name;
+    Account.icon = icon ?? Account.icon;
 
     setState(() {
-      this.nameController = TextEditingController(text: name);
-      this.icon = icon;
+      this.nameController = TextEditingController(text: Account.name);
+      this.icon = Account.icon;
     });
   }
 
@@ -166,7 +169,7 @@ class _NameState extends State<Name> {
               ),
               controller: this.nameController,
               onSubmitted: (String newName) {
-                this.prefs.setString(NAME_KEY, newName);
+                setAccount(name: newName);
               },
               style: TextStyle(
                   fontSize: 16,
