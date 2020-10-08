@@ -65,8 +65,8 @@ class _GroupChatState extends State<GroupChat> {
 
     Stream<QuerySnapshot> chatStream;
     QuerySnapshot tempSnapshot = await collection.get();
-    QueryDocumentSnapshot firstDocInCollection = tempSnapshot.docs[0];
     if (tempSnapshot.size > 0) {
+      QueryDocumentSnapshot firstDocInCollection = tempSnapshot.docs[0];
       if (shouldFetchNext && firstChatDoc != null) {
         tempSnapshot = await collection
             .endAtDocument(firstChatDoc)
