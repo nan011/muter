@@ -22,5 +22,8 @@
     "notif_amplitude_label": "Kekuatan getaran",
     "notif_duration_label": "Durasi",
     "notif_repetition_label": "Jumlah pengulangan",
-    "notif_repeatdelay_label": "Waktu antar pengulangan"
+    "notif_repeatdelay_label": "Waktu antar pengulangan",
+    "chat_livechat_title": "Percakapan langsung",
+    "groupchat_messagehint": "Buat pesan...",
+    "groupchat_nomessage": "Belum ada percakapan nih, ayo jadilah orang pertama yang memulai!"
 }

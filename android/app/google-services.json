@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "126163155765",
+    "firebase_url": "https://muter-a6e9e.firebaseio.com",
+    "project_id": "muter-a6e9e",
+    "storage_bucket": "muter-a6e9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126163155765:android:7ac268890b99a0b8a16a7c",
+        "android_client_info": {
+          "package_name": "id.muter.muter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126163155765-i8m7b4g2edrsj0hke6l8udcgqqs7oasb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh57TAp6GMmGkSYBCkTLlZ4Q7Gd9mAwBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126163155765-i8m7b4g2edrsj0hke6l8udcgqqs7oasb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

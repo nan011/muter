@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:muter/commons/widgets/Avatar/Avatar.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:vector_math/vector_math.dart';
 import 'dart:math';
@@ -412,4 +413,9 @@ class VibrationSetting {
       ),
     );
   }
+}
+
+class Account {
+  static String name;
+  static AvatarIcon icon;
 }

@@ -9,7 +9,7 @@ import 'package:muter/App/Home/widgets/SignLanguage/SignLanguage.dart';
 import 'package:muter/commons/widgets/Avatar/Avatar.dart';
 import 'package:muter/commons/helper/helper.dart';
 import 'package:muter/commons/widgets/Header/Header.dart';
-import 'package:muter/models/HomeModel.dart';
+import 'package:muter/App/Home/models.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -74,34 +74,69 @@ class Name extends StatefulWidget {
 }
 
 class _NameState extends State<Name> {
-  TextEditingController nameController;
   SharedPreferences prefs;
+  TextEditingController nameController;
+  AvatarIcon icon;
 
   static const String NAME_KEY = "NAME";
-  static const List<String> NAME_LIST = [
-    "Confident Koala",
-    "Overpowered Rabbit",
-    "Responsible Chicken",
+  static const String ICON_NAME = "ICON";
+
+  static const List<Map<String, dynamic>> ACCOUNT_LIST = [
+    {
+      NAME_KEY: "Confident Koala",
+      ICON_NAME: AvatarIcon.koala,
+    },
+    {
+      NAME_KEY: "Lovable Parrot",
+      ICON_NAME: AvatarIcon.parrot,
+    },
+    {
+      NAME_KEY: "Fabulous Rabbit",
+      ICON_NAME: AvatarIcon.rabbit,
+    },
+    {
+      NAME_KEY: "Overpowered Snail",
+      ICON_NAME: AvatarIcon.snail,
+    },
+    {
+      NAME_KEY: "Amazing Frog",
+      ICON_NAME: AvatarIcon.frog,
+    },
   ];
 
   @override
   void initState() {
     super.initState();
-    setNameFromPreferences();
+    setAccountFromPreferences();
   }
 
-  void setNameFromPreferences() async {
+  void setAccountFromPreferences() async {
     this.prefs = await SharedPreferences.getInstance();
     String name = this.prefs.getString(NAME_KEY);
+    AvatarIcon icon = AvatarIcon.getIconByName(prefs.getString(ICON_NAME));
 
     if (name == null) {
       Random random = Random();
-      name = NAME_LIST[random.nextInt(NAME_LIST.length)];
+      Map<String, dynamic> account =
+          ACCOUNT_LIST[random.nextInt(ACCOUNT_LIST.length)];
+
+      name = account[NAME_KEY];
+      icon = account[ICON_NAME];
+
       await this.prefs.setString(NAME_KEY, name);
+      await this.prefs.setString(ICON_NAME, icon.name);
     }
+
+    setAccount(name, icon);
+  }
+
+  void setAccount(String name, AvatarIcon icon) {
+    Account.name = name;
+    Account.icon = icon;
 
     setState(() {
       this.nameController = TextEditingController(text: name);
+      this.icon = icon;
     });
   }
 
@@ -147,9 +182,11 @@ class _NameState extends State<Name> {
             left: 16,
           ),
         ),
-        Avatar(
-          icon: AvatarIcon.koala,
-        )
+        icon == null
+            ? SizedBox.shrink()
+            : Avatar(
+                icon: icon,
+              )
       ],
     );
   }

@@ -22,5 +22,8 @@
     "notif_amplitude_label": "Power level",
     "notif_duration_label": "Duration",
     "notif_repetition_label": "Repetition",
-    "notif_repeatdelay_label": "Repeat delay"
+    "notif_repeatdelay_label": "Repeat delay",
+    "chat_livechat_title": "Live chats",
+    "groupchat_messagehint": "Message...",
+    "groupchat_nomessage": "No one chats today, be the first one to initiate"
 }
