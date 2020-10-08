@@ -214,7 +214,7 @@ class _TrainNotificationState extends State<TrainNotification> {
                 // ),
                 GroupList(
                   title: tr('stations_all_title'),
-                  firstLimit: 5,
+                  firstLimit: null,
                   list: this.stations.map((station) {
                     return Item(
                       icon: station["is_transition"]
