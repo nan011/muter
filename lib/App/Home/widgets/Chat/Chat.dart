@@ -400,6 +400,7 @@ class News extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String backgroundUrl = this.backgroundUrl ?? getImageUrlBasedOnTime();
+    final int currentDay = DateTime.now().day;
 
     return InkWell(
       onTap: () async {
@@ -491,7 +492,7 @@ class News extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  "${time.hour}:${time.minute}",
+                                  "${currentDay > time.day ? "${time.day}/${time.month}/${time.year}" : ''} ${time.hour}:${time.minute}",
                                   style: TextStyle(
                                     fontSize: 8,
                                     color: Colors.white,
