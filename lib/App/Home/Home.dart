@@ -158,27 +158,29 @@ class _NameState extends State<Name> {
         ),
         IntrinsicWidth(
           child: TextField(
-              decoration: InputDecoration.collapsed(
-                border: InputBorder.none,
-                hintStyle: TextStyle(
-                  color: AppColor.black(0.8),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                hintText: tr("home_name_hint"),
+            decoration: InputDecoration.collapsed(
+              border: InputBorder.none,
+              hintStyle: TextStyle(
+                color: AppColor.black(0.8),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
               ),
-              controller: this.nameController,
-              onSubmitted: (String newName) {
-                setAccount(name: newName);
-              },
-              style: TextStyle(
-                  fontSize: 16,
-                  color: AppColor.blue(1),
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.right,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-              ]),
+              hintText: tr("home_name_hint"),
+            ),
+            controller: this.nameController,
+            onSubmitted: (String newName) {
+              setAccount(name: newName);
+            },
+            style: TextStyle(
+              fontSize: 16,
+              color: AppColor.blue(1),
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.right,
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(30),
+            ],
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(
