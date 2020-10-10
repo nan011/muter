@@ -95,6 +95,12 @@ class _ChatState extends State<Chat> {
     loadNews();
   }
 
+  @override
+  void dispose() {
+    newsRefreshController.dispose();
+    super.dispose();
+  }
+
   List<Widget> setListWithGap(
     List<Widget> list,
     double gap,
