@@ -104,6 +104,11 @@ class _NameState extends State<Name> {
     },
   ];
 
+  static final List<AvatarIcon> icons =
+      ACCOUNT_LIST.map<AvatarIcon>((Map<String, dynamic> account) {
+    return account[ICON_NAME];
+  }).toList();
+
   @override
   void initState() {
     super.initState();
@@ -187,11 +192,25 @@ class _NameState extends State<Name> {
             left: 16,
           ),
         ),
-        icon == null
-            ? SizedBox.shrink()
-            : Avatar(
-                icon: icon,
-              )
+        if (icon == null)
+          SizedBox.shrink()
+        else
+          InkWell(
+            onTap: () {
+              int index = 0;
+              print(icons);
+              while (index < icons.length && icons[index].name != icon.name) {
+                index++;
+              }
+
+              index += 1;
+              index = index % icons.length;
+              setAccount(icon: icons[index]);
+            },
+            child: Avatar(
+              icon: icon,
+            ),
+          )
       ],
     );
   }
