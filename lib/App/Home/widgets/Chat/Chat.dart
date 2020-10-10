@@ -165,9 +165,11 @@ class _ChatState extends State<Chat> {
     }
 
     newsListNextToken = body['meta']['next_token'];
-    setState(() {
-      this.newsList = setListWithGap(this.rawNewsList, 8.0, Axis.horizontal);
-    });
+    if (mounted) {
+      setState(() {
+        this.newsList = setListWithGap(this.rawNewsList, 8.0, Axis.horizontal);
+      });
+    }
   }
 
   @override
