@@ -25,6 +25,7 @@
     "notif_repeatdelay_label": "Waktu antar pengulangan",
     "chat_livechat_title": "Percakapan langsung",
     "chat_news_title": "Berita",
+    "chat_nonews": "Tidak ada berita hari ini",
     "groupchat_messagehint": "Buat pesan...",
     "groupchat_nomessage": "Belum ada percakapan nih, ayo jadilah orang pertama yang memulai!",
     "groupchat_pushcooldown": "Mohon tunggu %s %s"

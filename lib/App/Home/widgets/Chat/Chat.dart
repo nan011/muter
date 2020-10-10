@@ -202,31 +202,44 @@ class _ChatState extends State<Chat> {
                   top: 16,
                 ),
               ),
-              SizedBox(
-                width: width,
-                height: 120,
-                child: SmartRefresher(
-                  controller: newsRefreshController,
-                  enablePullDown: false,
-                  enablePullUp: !shouldStopFetchNews,
-                  scrollDirection: Axis.horizontal,
-                  onLoading: () async {
-                    await loadNews();
-                    newsRefreshController.loadComplete();
-                  },
-                  onRefresh: () => newsRefreshController.refreshCompleted(),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.0,
+              newsList.length > 0
+                  ? SizedBox(
+                      width: width,
+                      height: 120,
+                      child: SmartRefresher(
+                        controller: newsRefreshController,
+                        enablePullDown: false,
+                        enablePullUp: !shouldStopFetchNews,
+                        scrollDirection: Axis.horizontal,
+                        onLoading: () async {
+                          await loadNews();
+                          newsRefreshController.loadComplete();
+                        },
+                        onRefresh: () =>
+                            newsRefreshController.refreshCompleted(),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                          ),
+                          itemCount: newsList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return newsList[index];
+                          },
+                        ),
+                      ),
+                    )
+                  : Container(
+                      height: 30,
+                      alignment: Alignment.center,
+                      child: Text(
+                        tr('chat_nonews'),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColor.gray(1),
+                        ),
+                      ),
                     ),
-                    itemCount: newsList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return newsList[index];
-                    },
-                  ),
-                ),
-              ),
             ],
           ),
           Padding(
