@@ -151,7 +151,9 @@ class _ChatState extends State<Chat> {
       }
       return News(
         url: "https://twitter.com/CommuterLine/status/${tweet['id']}",
-        title: tweet['text'],
+        title: (tweet['text'] as String)
+            .replaceAll('#RekanCommuters ', '')
+            .replaceAll('RT @CommuterLine: ', ''),
         time: createdAt,
       );
     }).toList();
