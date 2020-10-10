@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +11,7 @@ import 'package:muter/commons/helper/helper.dart';
 import 'package:muter/commons/widgets/Avatar/Avatar.dart';
 import 'package:muter/commons/widgets/Header/Header.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:sprintf/sprintf.dart';
 
 class GroupChat extends StatefulWidget {
   @override
@@ -23,9 +26,10 @@ class _GroupChatState extends State<GroupChat> {
   ScrollController scrollController;
   RefreshController refreshController;
   bool stopToPullUp;
-  bool ableToSend;
+  bool shouldShowCooldownMessage;
+  int pushMessageCooldownListenerId;
 
-  static const int NUMBER_OF_EACH_FETCH = 50;
+  static const int NUMBER_OF_FETCH_BATCH = 50;
 
   @override
   void initState() {
@@ -34,7 +38,14 @@ class _GroupChatState extends State<GroupChat> {
     scrollController = ScrollController();
     refreshController = RefreshController();
     stopToPullUp = false;
-    ableToSend = true;
+    shouldShowCooldownMessage = false;
+    pushMessageCooldownListenerId = PushMessageCooldown.addListener(() {
+      if (PushMessageCooldown.cooldown == 0) {
+        setState(() {
+          shouldShowCooldownMessage = false;
+        });
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setupFirestore();
     });
@@ -55,6 +66,7 @@ class _GroupChatState extends State<GroupChat> {
     chatInputController.dispose();
     scrollController.dispose();
     refreshController.dispose();
+    PushMessageCooldown.removeListener(pushMessageCooldownListenerId);
     super.dispose();
   }
 
@@ -70,10 +82,11 @@ class _GroupChatState extends State<GroupChat> {
       if (shouldFetchNext && firstChatDoc != null) {
         tempSnapshot = await collection
             .endAtDocument(firstChatDoc)
-            .limitToLast(NUMBER_OF_EACH_FETCH)
+            .limitToLast(NUMBER_OF_FETCH_BATCH)
             .get();
       } else if (!shouldFetchNext) {
-        tempSnapshot = await collection.limitToLast(NUMBER_OF_EACH_FETCH).get();
+        tempSnapshot =
+            await collection.limitToLast(NUMBER_OF_FETCH_BATCH).get();
       } else {
         return;
       }
@@ -90,7 +103,6 @@ class _GroupChatState extends State<GroupChat> {
     }
 
     chatStream.listen((QuerySnapshot snapshot) {
-      print(stopToPullUp);
       List<Widget> messages = snapshot.docs
           .map((DocumentSnapshot document) {
             String id = document.id;
@@ -139,9 +151,10 @@ class _GroupChatState extends State<GroupChat> {
             ? ListView.builder(
                 reverse: true,
                 controller: scrollController,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 16,
+                padding: const EdgeInsets.only(
+                  top: 24,
+                  left: 16,
+                  right: 16,
                 ),
                 itemCount: messages.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -265,6 +278,16 @@ class _GroupChatState extends State<GroupChat> {
                     )
                   : chatBox,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Visibility(
+                  visible: shouldShowCooldownMessage &&
+                      PushMessageCooldown.cooldown > 0,
+                  child: CooldownMessage(),
+                )
+              ],
+            ),
             Container(
               decoration: BoxDecoration(
                 color: AppColor.white(1),
@@ -310,6 +333,13 @@ class _GroupChatState extends State<GroupChat> {
                     ),
                     InkWell(
                       onTap: () {
+                        if (PushMessageCooldown.cooldown > 0) {
+                          setState(() {
+                            shouldShowCooldownMessage = true;
+                          });
+                          return;
+                        }
+
                         if (chatInputController.text.length == 0) {
                           return;
                         }
@@ -320,6 +350,7 @@ class _GroupChatState extends State<GroupChat> {
                           'message': chatInputController.text,
                           'created_at': DateTime.now().toIso8601String()
                         });
+                        PushMessageCooldown.cooldown = 3;
                         chatInputController.text = "";
                       },
                       child: SvgPicture.asset(
@@ -333,6 +364,61 @@ class _GroupChatState extends State<GroupChat> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CooldownMessage extends StatefulWidget {
+  const CooldownMessage({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _CooldownMessageState createState() => _CooldownMessageState();
+}
+
+class _CooldownMessageState extends State<CooldownMessage> {
+  int listenerId;
+  int cooldown;
+
+  @override
+  void initState() {
+    super.initState();
+    cooldown = PushMessageCooldown.cooldown;
+    listenerId = PushMessageCooldown.addListener(() {
+      setState(() {
+        cooldown = PushMessageCooldown.cooldown;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    PushMessageCooldown.removeListener(listenerId);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
+      color: AppColor.red(1),
+      padding: EdgeInsets.symmetric(
+        vertical: 8,
+      ),
+      child: Text(
+        sprintf(tr("groupchat_pushcooldown"), [
+          cooldown,
+          tr("common_time_second").toLowerCase(),
+        ]),
+        style: TextStyle(
+          fontSize: 12,
+          color: AppColor.white(1),
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

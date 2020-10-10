@@ -24,7 +24,8 @@
     "notif_repetition_label": "Jumlah pengulangan",
     "notif_repeatdelay_label": "Waktu antar pengulangan",
     "chat_livechat_title": "Percakapan langsung",
+    "chat_news_title": "Berita",
     "groupchat_messagehint": "Buat pesan...",
     "groupchat_nomessage": "Belum ada percakapan nih, ayo jadilah orang pertama yang memulai!",
-    "chat_news_title": "Berita"
+    "groupchat_pushcooldown": "Mohon tunggu %s %s"
 }

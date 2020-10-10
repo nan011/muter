@@ -419,3 +419,32 @@ class Account {
   static String name;
   static AvatarIcon icon;
 }
+
+class PushMessageCooldown {
+  static int _cooldown = 0;
+  static get cooldown => _cooldown;
+  static set cooldown(int newCooldown) {
+    if (newCooldown >= 0.0) {
+      _cooldown = newCooldown;
+
+      listeners.forEach((listener) => listener());
+      Timer.periodic(Duration(seconds: 1), (Timer timer) {
+        _cooldown -= 1;
+        listeners.forEach((listener) => listener());
+
+        if (_cooldown == 0) timer.cancel();
+      });
+    }
+  }
+
+  static List<VoidCallback> listeners = [];
+  static int addListener(VoidCallback listener) {
+    listeners.add(listener);
+    return listeners.length - 1;
+  }
+
+  static void removeListener(int index) {
+    if (listeners.length <= index) return;
+    listeners.removeAt(index);
+  }
+}
