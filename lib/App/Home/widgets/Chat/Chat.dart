@@ -73,7 +73,8 @@ class _ChatState extends State<Chat> {
   List<Widget> newsList;
   String newsListNextToken;
   bool shouldStopFetchNews;
-  RefreshController newsRefreshController;
+  RefreshController newsUpdateRefreshController;
+  RefreshController newsResetRefreshController;
 
   @override
   void initState() {
@@ -91,13 +92,15 @@ class _ChatState extends State<Chat> {
       Axis.horizontal,
     );
     shouldStopFetchNews = false;
-    newsRefreshController = RefreshController();
+    newsUpdateRefreshController = RefreshController();
+    newsResetRefreshController = RefreshController();
     loadNews();
   }
 
   @override
   void dispose() {
-    newsRefreshController.dispose();
+    newsUpdateRefreshController.dispose();
+    newsResetRefreshController.dispose();
     super.dispose();
   }
 
@@ -180,100 +183,116 @@ class _ChatState extends State<Chat> {
     return Container(
       height: height,
       alignment: Alignment.center,
-      child: ListView(
-        padding: EdgeInsets.only(
-          bottom: 300,
-        ),
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
+      child: SmartRefresher(
+        scrollDirection: Axis.vertical,
+        controller: newsResetRefreshController,
+        enablePullDown: true,
+        // header: WaterDropMaterialHeader(
+        //   backgroundColor: AppColor.blue(1),
+        //   color: AppColor.white(1),
+        // ),
+        onLoading: () async {
+          newsListNextToken = null;
+          shouldStopFetchNews = false;
+          await loadNews();
+          newsResetRefreshController.loadComplete();
+        },
+        onRefresh: () => newsResetRefreshController.refreshCompleted(),
+        child: ListView(
+          padding: EdgeInsets.only(
+            bottom: 300,
+          ),
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
+                  child: GroupListTitle(
+                    title: tr('chat_news_title'),
+                  ),
                 ),
-                child: GroupListTitle(
-                  title: tr('chat_news_title'),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 16,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 16,
-                ),
-              ),
-              newsList.length > 0
-                  ? SizedBox(
-                      width: width,
-                      height: 120,
-                      child: SmartRefresher(
-                        controller: newsRefreshController,
-                        enablePullDown: false,
-                        enablePullUp: !shouldStopFetchNews,
-                        scrollDirection: Axis.horizontal,
-                        onLoading: () async {
-                          await loadNews();
-                          newsRefreshController.loadComplete();
-                        },
-                        onRefresh: () =>
-                            newsRefreshController.refreshCompleted(),
-                        child: ListView.builder(
+                newsList.length > 0
+                    ? SizedBox(
+                        width: width,
+                        height: 120,
+                        child: SmartRefresher(
+                          controller: newsUpdateRefreshController,
+                          enablePullDown: false,
+                          enablePullUp: !shouldStopFetchNews,
                           scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                          ),
-                          itemCount: newsList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return newsList[index];
+                          onLoading: () async {
+                            await loadNews();
+                            newsUpdateRefreshController.loadComplete();
                           },
+                          onRefresh: () =>
+                              newsUpdateRefreshController.refreshCompleted(),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            itemCount: newsList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return newsList[index];
+                            },
+                          ),
+                        ),
+                      )
+                    : Container(
+                        height: 30,
+                        alignment: Alignment.center,
+                        child: Text(
+                          tr('chat_nonews'),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColor.gray(1),
+                          ),
                         ),
                       ),
-                    )
-                  : Container(
-                      height: 30,
-                      alignment: Alignment.center,
-                      child: Text(
-                        tr('chat_nonews'),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColor.gray(1),
-                        ),
-                      ),
-                    ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 24,
+              ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 24,
+              ),
             ),
-            child: GroupList(
-              title: tr('chat_livechat_title'),
-              firstLimit: null,
-              list: groupChats.map((Map<String, dynamic> groupChat) {
-                return StationPairItem(
-                  firstStationName: groupChat['pair'][0],
-                  secondStationName: groupChat['pair'][1],
-                  onTap: () {
-                    GroupChatArguments args = GroupChatArguments(
-                      id: groupChat["id"],
-                      firstStationName: groupChat['pair'][0],
-                      secondStationName: groupChat['pair'][1],
-                    );
-                    Navigator.of(context).pushNamed(
-                      "/GroupChat",
-                      arguments: args,
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              child: GroupList(
+                title: tr('chat_livechat_title'),
+                firstLimit: null,
+                list: groupChats.map((Map<String, dynamic> groupChat) {
+                  return StationPairItem(
+                    firstStationName: groupChat['pair'][0],
+                    secondStationName: groupChat['pair'][1],
+                    onTap: () {
+                      GroupChatArguments args = GroupChatArguments(
+                        id: groupChat["id"],
+                        firstStationName: groupChat['pair'][0],
+                        secondStationName: groupChat['pair'][1],
+                      );
+                      Navigator.of(context).pushNamed(
+                        "/GroupChat",
+                        arguments: args,
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
