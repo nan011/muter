@@ -140,6 +140,10 @@ class _GroupChatState extends State<GroupChat> {
         enablePullUp: !stopToPullUp,
         enablePullDown: false,
         controller: refreshController,
+        header: WaterDropMaterialHeader(
+          backgroundColor: AppColor.blue(1),
+          color: AppColor.white(1),
+        ),
         onLoading: () async {
           await setChatBox(true);
           refreshController.loadComplete();
