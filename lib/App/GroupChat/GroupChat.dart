@@ -28,6 +28,7 @@ class _GroupChatState extends State<GroupChat> {
   bool stopToPullUp;
   bool shouldShowCooldownMessage;
   int pushMessageCooldownListenerId;
+  String appId;
 
   static const int NUMBER_OF_FETCH_BATCH = 50;
 
@@ -46,7 +47,8 @@ class _GroupChatState extends State<GroupChat> {
         });
       }
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      appId = await Utility.getAppId();
       setupFirestore();
     });
   }
@@ -110,7 +112,7 @@ class _GroupChatState extends State<GroupChat> {
             AvatarIcon icon =
                 AvatarIcon.getIconByName(data['icon']) ?? AvatarIcon.rabbit;
 
-            bool isMe = data["name"] == Account.name;
+            bool isMe = data["id"] == appId;
 
             return <Widget>[
               isMe
@@ -337,6 +339,8 @@ class _GroupChatState extends State<GroupChat> {
                     ),
                     InkWell(
                       onTap: () {
+                        if (appId == null) return;
+
                         if (PushMessageCooldown.cooldown > 0) {
                           setState(() {
                             shouldShowCooldownMessage = true;
@@ -349,6 +353,7 @@ class _GroupChatState extends State<GroupChat> {
                         }
 
                         FirebaseFirestore.instance.collection(args.id).add({
+                          'id': appId,
                           'name': Account.name,
                           'icon': Account.icon.name,
                           'message': chatInputController.text,
