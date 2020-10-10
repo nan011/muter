@@ -25,5 +25,6 @@
     "notif_repeatdelay_label": "Repeat delay",
     "chat_livechat_title": "Live chats",
     "groupchat_messagehint": "Message...",
-    "groupchat_nomessage": "No one chats today, be the first one to initiate"
+    "groupchat_nomessage": "No one chats today, be the first one to initiate",
+    "chat_news_title": "News"
 }

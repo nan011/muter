@@ -45,6 +45,10 @@ dependencies:
   firebase_auth: 0.18.1+1
   firebase_core: 0.5.0
   pull_to_refresh: 1.6.2
+  cached_network_image: 2.3.2+1
+  http: 0.12.2
+  url_launcher: 5.7.2
+  content_placeholder: 0.1.0
 
 
 dev_dependencies:
@@ -78,6 +82,7 @@ flutter:
     - assets/arts/
     - assets/data/
     - assets/signs/
+    - assets/wallpapers/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
