@@ -1,4 +1,26 @@
 {
-    "alarmIconName": "Alarm me!",
-    "chatIconName": "Chat" 
+    "common_time_second": "Seconds",
+    "alert_unavailable": "Not available for right now",
+    "alert_notif_gettingclose": "You are getting close!!",
+    "alert_notif_gettingclose_distance": "Yuhuuu, you are in %s m away from the station",
+    "grouplist_more_label": "More...",
+    "grouplist_less_label": "Less...",
+    "grouplist_empty": "List is empty",
+    "home_name_hint": "Name...",
+    "bottombar_notif_name": "Alarm me!",
+    "bottombar_chat_name": "Chat",
+    "stations_all_title": "Stations",
+    "stations_search_hint": "Your destination...",
+    "notif_vibrationsetting_title": "Vibration setting",
+    "notif_availabledistances_title": "Notify me before",
+    "notif_checkeddistance_alert": "You already checked the distance",
+    "notif_pickoneatleast_alert": "Please pick at least one distance for notification",
+    "notif_button_done": "Done",
+    "notif_button_cancel": "Cancel",
+    "notif_selecteddistancelist_title": "Selected distances",
+    "notif_distanceconstraint_alert": "The distance should be between %s and %s",
+    "notif_amplitude_label": "Power level",
+    "notif_duration_label": "Duration",
+    "notif_repetition_label": "Repetition",
+    "notif_repeatdelay_label": "Repeat delay"
 }

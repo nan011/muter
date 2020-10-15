@@ -1,11 +1,18 @@
+import 'dart:math';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muter/App/Home/widgets/SignLanguage/SignLanguage.dart';
 
-import 'package:muter/commons/Avatar/Avatar.dart';
+import 'package:muter/commons/widgets/Avatar/Avatar.dart';
 import 'package:muter/commons/helper/helper.dart';
+import 'package:muter/commons/widgets/Header/Header.dart';
 import 'package:muter/models/HomeModel.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import './widgets/Chat/Chat.dart';
 import './widgets/TrainNotification/TrainNotification.dart';
 import './widgets/SignLanguage/SignLanguage.dart';
@@ -22,7 +29,14 @@ class Home extends StatelessWidget {
     return ChangeNotifierProvider<HomeModel>(
       create: (BuildContext context) => HomeModel(currentPageIndex: 0),
       child: Scaffold(
-        appBar: Header(),
+        appBar: Header(
+          content: Row(
+            children: [
+              Expanded(flex: 1, child: SizedBox.shrink()),
+              Name(),
+            ],
+          ),
+        ),
         body: Container(
           alignment: Alignment.center,
           child: Stack(
@@ -30,22 +44,17 @@ class Home extends StatelessWidget {
               Positioned(
                 top: 0,
                 left: 0,
-                child: IntrinsicHeight(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Consumer<HomeModel>(
-                          builder: (_, HomeModel model, __) {
-                        return this.pages[model.currentPageIndex];
-                      }),
-                    ),
-                  ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Consumer<HomeModel>(builder: (_, HomeModel model, __) {
+                    return this.pages[model.currentPageIndex];
+                  }),
                 ),
               ),
               Positioned(
                 bottom: 0,
                 left: 0,
-                child: Footer(),
+                child: FloatingFooter(),
               ),
             ],
           ),
@@ -53,48 +62,6 @@ class Home extends StatelessWidget {
       ),
     );
   }
-}
-
-class Header extends StatelessWidget implements PreferredSize {
-  @override
-  Widget build(BuildContext context) {
-    double statusBarHeight = MediaQuery.of(context).padding.top;
-    double pagePaddingVertical = 24;
-    double pagePaddingHorizontal = 16;
-    return Container(
-      padding: EdgeInsets.only(
-          top: statusBarHeight + pagePaddingVertical,
-          left: pagePaddingHorizontal,
-          right: pagePaddingHorizontal,
-          bottom: pagePaddingVertical),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Visibility(
-            visible: Navigator.of(context).canPop(),
-            child: InkWell(
-              onTap: () => {
-                if (Navigator.of(context).canPop())
-                  {Navigator.of(context).pop(context)}
-              },
-              child: SvgPicture.asset(
-                'assets/icons/back.svg',
-                height: 18,
-              ),
-            ),
-          ),
-          Expanded(flex: 1, child: SizedBox.shrink()),
-          Name(),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(double.maxFinite);
-
-  @override
-  Widget get child => throw UnimplementedError();
 }
 
 class Name extends StatefulWidget {
@@ -108,11 +75,34 @@ class Name extends StatefulWidget {
 
 class _NameState extends State<Name> {
   TextEditingController nameController;
+  SharedPreferences prefs;
+
+  static const String NAME_KEY = "NAME";
+  static const List<String> NAME_LIST = [
+    "Confident Koala",
+    "Overpowered Rabbit",
+    "Responsible Chicken",
+  ];
 
   @override
   void initState() {
     super.initState();
-    this.nameController = TextEditingController(text: "Confident Koala");
+    setNameFromPreferences();
+  }
+
+  void setNameFromPreferences() async {
+    this.prefs = await SharedPreferences.getInstance();
+    String name = this.prefs.getString(NAME_KEY);
+
+    if (name == null) {
+      Random random = Random();
+      name = NAME_LIST[random.nextInt(NAME_LIST.length)];
+      await this.prefs.setString(NAME_KEY, name);
+    }
+
+    setState(() {
+      this.nameController = TextEditingController(text: name);
+    });
   }
 
   @override
@@ -130,15 +120,27 @@ class _NameState extends State<Name> {
         ),
         IntrinsicWidth(
           child: TextField(
-            decoration: null,
-            controller: this.nameController,
-            onChanged: (String value) => {print(value)},
-            style: TextStyle(
-                fontSize: 16,
-                color: AppColor.blue(1),
-                fontWeight: FontWeight.bold),
-            textAlign: TextAlign.right,
-          ),
+              decoration: InputDecoration.collapsed(
+                border: InputBorder.none,
+                hintStyle: TextStyle(
+                  color: AppColor.black(0.8),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                hintText: tr("home_name_hint"),
+              ),
+              controller: this.nameController,
+              onSubmitted: (String newName) {
+                this.prefs.setString(NAME_KEY, newName);
+              },
+              style: TextStyle(
+                  fontSize: 16,
+                  color: AppColor.blue(1),
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.right,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(30),
+              ]),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -161,7 +163,7 @@ class _NameState extends State<Name> {
 
 typedef PageOnUpdate = void Function(int index);
 
-class Footer extends StatelessWidget {
+class FloatingFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -198,7 +200,7 @@ class Footer extends StatelessWidget {
                         alignment: Alignment.center,
                         child: FeatureIcon(
                           iconPath: 'assets/icons/alarm.svg',
-                          name: 'Alarm me!',
+                          name: tr('bottombar_notif_name'),
                           onTap: () {
                             HomeModel model =
                                 Provider.of<HomeModel>(context, listen: false);
@@ -217,11 +219,23 @@ class Footer extends StatelessWidget {
                         alignment: Alignment.center,
                         child: FeatureIcon(
                           iconPath: 'assets/icons/chat.svg',
-                          name: 'Chat',
+                          name: tr('bottombar_chat_name'),
                           onTap: () {
-                            HomeModel model =
-                                Provider.of<HomeModel>(context, listen: false);
-                            model.currentPageIndex = 2;
+                            Scaffold.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  action: SnackBarAction(
+                                    label: "Close",
+                                    onPressed: () {},
+                                  ),
+                                  content: Text(tr("alert_unavailable")),
+                                ),
+                              );
+                            // TODO: Unhide these codes when chat feature has been available
+                            // HomeModel model =
+                            //     Provider.of<HomeModel>(context, listen: false);
+                            // model.currentPageIndex = 2;
                           },
                         ),
                       ),

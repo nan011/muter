@@ -1,0 +1,722 @@
+[
+    {
+        "id": 0,
+        "name": "Rangkas Bitung",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.352464,
+            "longitude": 106.25145400000001
+        }
+    },
+    {
+        "id": 1,
+        "name": "Citeras",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.334747,
+            "longitude": 106.33264799999999
+        }
+    },
+    {
+        "id": 2,
+        "name": "Maja",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.332141,
+            "longitude": 106.39655
+        }
+    },
+    {
+        "id": 3,
+        "name": "Cikoya",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3355552,
+            "longitude": 106.40959709999998
+        }
+    },
+    {
+        "id": 4,
+        "name": "Tigaraksa",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3284296,
+            "longitude": 106.4324655
+        }
+    },
+    {
+        "id": 5,
+        "name": "Tenjo",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3272512,
+            "longitude": 106.4591649
+        }
+    },
+    {
+        "id": 6,
+        "name": "Daru",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3380074,
+            "longitude": 106.4902379
+        }
+    },
+    {
+        "id": 7,
+        "name": "Cilejit",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3543485,
+            "longitude": 106.5073828
+        }
+    },
+    {
+        "id": 8,
+        "name": "Parung Panjang",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3442135,
+            "longitude": 106.5677024
+        }
+    },
+    {
+        "id": 9,
+        "name": "Cicayur",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3295734,
+            "longitude": 106.6167311
+        }
+    },
+    {
+        "id": 10,
+        "name": "Cisauk",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.324992900000001,
+            "longitude": 106.6385685
+        }
+    },
+    {
+        "id": 11,
+        "name": "Serpong",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3200486,
+            "longitude": 106.66342590000001
+        }
+    },
+    {
+        "id": 12,
+        "name": "Rawa Buntu",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3150144,
+            "longitude": 106.67400649999999
+        }
+    },
+    {
+        "id": 13,
+        "name": "Sudimara",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2969897,
+            "longitude": 106.7105706
+        }
+    },
+    {
+        "id": 14,
+        "name": "Jurangmangu",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.288772499999999,
+            "longitude": 106.72691470000001
+        }
+    },
+    {
+        "id": 15,
+        "name": "Pondok Ranji",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2763621,
+            "longitude": 106.742725
+        }
+    },
+    {
+        "id": 16,
+        "name": "Kebayoran",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2372422,
+            "longitude": 106.7803285
+        }
+    },
+    {
+        "id": 17,
+        "name": "Palmerah",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2072905,
+            "longitude": 106.79532179999998
+        }
+    },
+    {
+        "id": 18,
+        "name": "Tanah Abang",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.1856968,
+            "longitude": 106.80865959999998
+        }
+    },
+    {
+        "id": 19,
+        "name": "Bogor",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.5954952,
+            "longitude": 106.789326
+        }
+    },
+    {
+        "id": 20,
+        "name": "Cilebut",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.530533599999999,
+            "longitude": 106.798372
+        }
+    },
+    {
+        "id": 21,
+        "name": "Bojong Gede",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.493243,
+            "longitude": 106.79270700000001
+        }
+    },
+    {
+        "id": 22,
+        "name": "Citayam",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.4487898,
+            "longitude": 106.80030740000001
+        }
+    },
+    {
+        "id": 23,
+        "name": "Depok",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.4050004000000005,
+            "longitude": 106.81506189999999
+        }
+    },
+    {
+        "id": 24,
+        "name": "Depok Baru",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3911232,
+            "longitude": 106.8195145
+        }
+    },
+    {
+        "id": 25,
+        "name": "Pondok Cina",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.369073200000001,
+            "longitude": 106.83001940000001
+        }
+    },
+    {
+        "id": 26,
+        "name": "Universitas Indonesia",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3607488,
+            "longitude": 106.82955940000001
+        }
+    },
+    {
+        "id": 27,
+        "name": "Universitas Pancasila",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3389344,
+            "longitude": 106.83224109999999
+        }
+    },
+    {
+        "id": 28,
+        "name": "Lenteng Agung",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.3306548,
+            "longitude": 106.83279270000001
+        }
+    },
+    {
+        "id": 29,
+        "name": "Tanjung Barat",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.307794,
+            "longitude": 106.83884499999999
+        }
+    },
+    {
+        "id": 30,
+        "name": "Pasar Minggu",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2842402,
+            "longitude": 106.84235770000001
+        }
+    },
+    {
+        "id": 31,
+        "name": "Pasar Minggu Baru",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.262778400000001,
+            "longitude": 106.8496685
+        }
+    },
+    {
+        "id": 32,
+        "name": "Duren Kalibata",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2553358,
+            "longitude": 106.85285079999998
+        }
+    },
+    {
+        "id": 33,
+        "name": "Cawang",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2426597,
+            "longitude": 106.85662679999999
+        }
+    },
+    {
+        "id": 34,
+        "name": "Tebet",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.226057099999999,
+            "longitude": 106.85609479999998
+        }
+    },
+    {
+        "id": 35,
+        "name": "Manggarai",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.209886,
+            "longitude": 106.848026
+        }
+    },
+    {
+        "id": 36,
+        "name": "Cikini",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.198551,
+            "longitude": 106.8390746
+        }
+    },
+    {
+        "id": 37,
+        "name": "Gondangdia",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.1862133,
+            "longitude": 106.8252244
+        }
+    },
+    {
+        "id": 38,
+        "name": "Gambir",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.1767059,
+            "longitude": 106.828464
+        }
+    },
+    {
+        "id": 39,
+        "name": "Juanda",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.1667163,
+            "longitude": 106.82828429999999
+        }
+    },
+    {
+        "id": 40,
+        "name": "Sawah Besar",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.166668,
+            "longitude": 106.81296329999999
+        }
+    },
+    {
+        "id": 41,
+        "name": "Mangga Besar",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.149676,
+            "longitude": 106.8248376
+        }
+    },
+    {
+        "id": 42,
+        "name": "Jayakarta",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.1412801,
+            "longitude": 106.8209439
+        }
+    },
+    {
+        "id": 43,
+        "name": "Jakarta Kota",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.1375686,
+            "longitude": 106.8124393
+        }
+    },
+    {
+        "id": 44,
+        "name": "Jatinegara",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.2152769999999995,
+            "longitude": 106.87016000000001
+        }
+    },
+    {
+        "id": 45,
+        "name": "Pondok Jati",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.209162,
+            "longitude": 106.86226299999998
+        }
+    },
+    {
+        "id": 46,
+        "name": "Kramat",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.193787,
+            "longitude": 106.856531
+        }
+    },
+    {
+        "id": 47,
+        "name": "Gang Sentiong",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.1860040000000005,
+            "longitude": 106.85065800000001
+        }
+    },
+    {
+        "id": 48,
+        "name": "Pasar Senen",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.174746,
+            "longitude": 106.844233
+        }
+    },
+    {
+        "id": 49,
+        "name": "Kemayoran",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.161849,
+            "longitude": 106.84156899999999
+        }
+    },
+    {
+        "id": 50,
+        "name": "Rajawali",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.14503,
+            "longitude": 106.836707
+        }
+    },
+    {
+        "id": 51,
+        "name": "Kampung Bandan",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.1322,
+            "longitude": 106.82871499999999
+        }
+    },
+    {
+        "id": 52,
+        "name": "Ancol",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.128044999999999,
+            "longitude": 106.84457900000001
+        }
+    },
+    {
+        "id": 53,
+        "name": "Tanjung Priuk",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.110955000000001,
+            "longitude": 106.881119
+        }
+    },
+    {
+        "id": 54,
+        "name": "Duri",
+        "is_transition": true,
+        "coord": {
+            "latitude": -6.155241,
+            "longitude": 106.801253
+        }
+    },
+    {
+        "id": 55,
+        "name": "Grogol",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.161992,
+            "longitude": 106.78895
+        }
+    },
+    {
+        "id": 56,
+        "name": "Pesing ",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.161751000000001,
+            "longitude": 106.77148999999999
+        }
+    },
+    {
+        "id": 57,
+        "name": "Taman kota",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.159307,
+            "longitude": 106.756869
+        }
+    },
+    {
+        "id": 58,
+        "name": "Bojong Indah",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.160521,
+            "longitude": 106.73640800000001
+        }
+    },
+    {
+        "id": 59,
+        "name": "Rawa Buaya",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.162788,
+            "longitude": 106.723693
+        }
+    },
+    {
+        "id": 60,
+        "name": "Kalideres",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.166057,
+            "longitude": 106.7038
+        }
+    },
+    {
+        "id": 61,
+        "name": "Poris",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.169922,
+            "longitude": 106.68000500000001
+        }
+    },
+    {
+        "id": 62,
+        "name": "Batuceper",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.171743,
+            "longitude": 106.665333
+        }
+    },
+    {
+        "id": 63,
+        "name": "Tanahtinggi",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.175313,
+            "longitude": 106.646052
+        }
+    },
+    {
+        "id": 64,
+        "name": "Tangerang",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.176786,
+            "longitude": 106.632733
+        }
+    },
+    {
+        "id": 65,
+        "name": "Karet ",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2008160000000005,
+            "longitude": 106.815845
+        }
+    },
+    {
+        "id": 66,
+        "name": "Sudirman",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2024099999999995,
+            "longitude": 106.823466
+        }
+    },
+    {
+        "id": 67,
+        "name": "Cibinong",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.464263,
+            "longitude": 106.85247
+        }
+    },
+    {
+        "id": 68,
+        "name": "Nambo",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.466228,
+            "longitude": 106.906213
+        }
+    },
+    {
+        "id": 69,
+        "name": "Klender",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.213423000000001,
+            "longitude": 106.89871399999998
+        }
+    },
+    {
+        "id": 70,
+        "name": "Buaran",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.215573,
+            "longitude": 106.92320900000001
+        }
+    },
+    {
+        "id": 71,
+        "name": "Klender Baru",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.217645,
+            "longitude": 106.940122
+        }
+    },
+    {
+        "id": 72,
+        "name": "Cakung",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.219130000000001,
+            "longitude": 106.95235600000001
+        }
+    },
+    {
+        "id": 73,
+        "name": "Kranji",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2245040000000005,
+            "longitude": 106.979846
+        }
+    },
+    {
+        "id": 74,
+        "name": "Bekasi",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.236619,
+            "longitude": 106.9992
+        }
+    },
+    {
+        "id": 75,
+        "name": "Bekasi Timur",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2468330000000005,
+            "longitude": 107.01805800000001
+        }
+    },
+    {
+        "id": 76,
+        "name": "Tambun",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.258705,
+            "longitude": 107.055825
+        }
+    },
+    {
+        "id": 77,
+        "name": "Cibitung",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.261803,
+            "longitude": 107.083648
+        }
+    },
+    {
+        "id": 78,
+        "name": "Metland-Telagamurni",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.2571129999999995,
+            "longitude": 107.11117
+        }
+    },
+    {
+        "id": 79,
+        "name": "CIkarang",
+        "is_transition": false,
+        "coord": {
+            "latitude": -6.255372,
+            "longitude": 107.145059
+        }
+    }
+]

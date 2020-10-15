@@ -1,4 +1,26 @@
 {
-    "alarmIconName": "Notifikasi",
-    "chatIconName": "Percakapan" 
+    "common_time_second": "Detik",
+    "alert_unavailable": "Belum tersedia untuk saat ini",
+    "alert_notif_gettingclose": "Kamu semakin dekat dengan tujuan!!",
+    "alert_notif_gettingclose_distance": "Tinggal %s m kamu akan sampai ke tujuan",
+    "grouplist_more_label": "Lebih banyak...",
+    "grouplist_less_label": "Lebih sedikit...",
+    "grouplist_empty": "Tidak ada daftar",
+    "home_name_hint": "Nama...",
+    "bottombar_notif_name": "Notifikasi",
+    "bottombar_chat_name": "Percakapan",
+    "stations_all_title": "Semua stasiun",
+    "stations_search_hint": "Tujuan stasiun...",
+    "notif_vibrationsetting_title": "Pengaturan Getaran",
+    "notif_availabledistances_title": "Notifikasi saya sebelum",
+    "notif_checkeddistance_alert": "Kamu sudah memilih jarak tersebut",
+    "notif_pickoneatleast_alert": "Mohon untuk memilih setidaknya ada satu jarak",
+    "notif_button_done": "Simpan",
+    "notif_button_cancel": "Hapus",
+    "notif_selecteddistancelist_title": "Jarak yang dipilih",
+    "notif_distanceconstraint_alert": "Jarak yang dipilih harus diantara %s and %s",
+    "notif_amplitude_label": "Kekuatan getaran",
+    "notif_duration_label": "Durasi",
+    "notif_repetition_label": "Jumlah pengulangan",
+    "notif_repeatdelay_label": "Waktu antar pengulangan"
 }

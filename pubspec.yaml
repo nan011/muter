@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # flutter_localizations:
+  #   sdk: flutter
+
     
     
   # The following adds the Cupertino Icons font to your application.
@@ -32,6 +35,13 @@ dependencies:
   easy_localization: 2.3.3
   flutter_svg: 0.18.1
   provider: 4.3.2+1
+  location: 3.0.2
+  background_location: ^0.1.2
+  vibration: 1.4.0
+  flutter_local_notifications: 1.4.4+4
+  shared_preferences: 0.5.10
+  sprintf: 4.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +71,9 @@ flutter:
     - assets/icons/
     - assets/avatars/
     - assets/illustrations/
+    - assets/arts/
+    - assets/data/
+    - assets/signs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -78,7 +91,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Dosis/Dosis-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Dosis/Dosis-Regular.ttf
+        - asset: assets/fonts/Dosis/Dosis-Medium.ttf
           weight: 400
   #   - family: Trajan Pro
   #     fonts:

@@ -12,6 +12,11 @@ class AvatarIcon {
   static const AvatarIcon snail = AvatarIcon(name: 'snail.svg');
   static const AvatarIcon frog = AvatarIcon(name: 'frog.svg');
 
+  static const AvatarIcon normalStation =
+      AvatarIcon(name: 'normal-station.svg');
+  static const AvatarIcon transitionStation =
+      AvatarIcon(name: 'transition-station.svg');
+
   final String name;
 
   const AvatarIcon({
