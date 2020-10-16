@@ -61,11 +61,14 @@ class _TrainNotificationState extends State<TrainNotification> {
     List<dynamic> stations = json.decode(await DefaultAssetBundle.of(context)
         .loadString('assets/data/station_coords.json'));
 
-    setState(() {
-      this.originalStations = stations
-        ..sort((a, b) => (a["name"] as String).compareTo(b["name"] as String));
-      this.stations = []..addAll(this.originalStations);
-    });
+    if (mounted) {
+      setState(() {
+        this.originalStations = stations
+          ..sort(
+              (a, b) => (a["name"] as String).compareTo(b["name"] as String));
+        this.stations = []..addAll(this.originalStations);
+      });
+    }
   }
 
   Future goToStationPage(SetAlarmArguments arguments) async {
@@ -211,7 +214,7 @@ class _TrainNotificationState extends State<TrainNotification> {
                 // ),
                 GroupList(
                   title: tr('stations_all_title'),
-                  firstLimit: 5,
+                  firstLimit: null,
                   list: this.stations.map((station) {
                     return Item(
                       icon: station["is_transition"]

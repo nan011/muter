@@ -9,7 +9,7 @@ import 'package:muter/App/Home/widgets/SignLanguage/SignLanguage.dart';
 import 'package:muter/commons/widgets/Avatar/Avatar.dart';
 import 'package:muter/commons/helper/helper.dart';
 import 'package:muter/commons/widgets/Header/Header.dart';
-import 'package:muter/models/HomeModel.dart';
+import 'package:muter/App/Home/models.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -74,34 +74,77 @@ class Name extends StatefulWidget {
 }
 
 class _NameState extends State<Name> {
-  TextEditingController nameController;
   SharedPreferences prefs;
+  TextEditingController nameController;
+  AvatarIcon icon;
 
   static const String NAME_KEY = "NAME";
-  static const List<String> NAME_LIST = [
-    "Confident Koala",
-    "Overpowered Rabbit",
-    "Responsible Chicken",
+  static const String ICON_NAME = "ICON";
+
+  static const List<Map<String, dynamic>> ACCOUNT_LIST = [
+    {
+      NAME_KEY: "Confident Koala",
+      ICON_NAME: AvatarIcon.koala,
+    },
+    {
+      NAME_KEY: "Lovable Parrot",
+      ICON_NAME: AvatarIcon.parrot,
+    },
+    {
+      NAME_KEY: "Fabulous Rabbit",
+      ICON_NAME: AvatarIcon.rabbit,
+    },
+    {
+      NAME_KEY: "Overpowered Snail",
+      ICON_NAME: AvatarIcon.snail,
+    },
+    {
+      NAME_KEY: "Amazing Frog",
+      ICON_NAME: AvatarIcon.frog,
+    },
   ];
+
+  static final List<AvatarIcon> icons =
+      ACCOUNT_LIST.map<AvatarIcon>((Map<String, dynamic> account) {
+    return account[ICON_NAME];
+  }).toList();
 
   @override
   void initState() {
     super.initState();
-    setNameFromPreferences();
+    setAccountFromPreferences();
   }
 
-  void setNameFromPreferences() async {
+  void setAccountFromPreferences() async {
     this.prefs = await SharedPreferences.getInstance();
     String name = this.prefs.getString(NAME_KEY);
+    AvatarIcon icon = AvatarIcon.getIconByName(prefs.getString(ICON_NAME));
 
     if (name == null) {
       Random random = Random();
-      name = NAME_LIST[random.nextInt(NAME_LIST.length)];
+      Map<String, dynamic> account =
+          ACCOUNT_LIST[random.nextInt(ACCOUNT_LIST.length)];
+
+      name = account[NAME_KEY];
+      icon = account[ICON_NAME];
+
       await this.prefs.setString(NAME_KEY, name);
+      await this.prefs.setString(ICON_NAME, icon.name);
     }
 
+    setAccount(name: name, icon: icon);
+  }
+
+  void setAccount({
+    String name,
+    AvatarIcon icon,
+  }) {
+    Account.name = name ?? Account.name;
+    Account.icon = icon ?? Account.icon;
+
     setState(() {
-      this.nameController = TextEditingController(text: name);
+      this.nameController = TextEditingController(text: Account.name);
+      this.icon = Account.icon;
     });
   }
 
@@ -120,36 +163,54 @@ class _NameState extends State<Name> {
         ),
         IntrinsicWidth(
           child: TextField(
-              decoration: InputDecoration.collapsed(
-                border: InputBorder.none,
-                hintStyle: TextStyle(
-                  color: AppColor.black(0.8),
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
-                hintText: tr("home_name_hint"),
+            decoration: InputDecoration.collapsed(
+              border: InputBorder.none,
+              hintStyle: TextStyle(
+                color: AppColor.black(0.8),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
               ),
-              controller: this.nameController,
-              onSubmitted: (String newName) {
-                this.prefs.setString(NAME_KEY, newName);
-              },
-              style: TextStyle(
-                  fontSize: 16,
-                  color: AppColor.blue(1),
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.right,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-              ]),
+              hintText: tr("home_name_hint"),
+            ),
+            controller: this.nameController,
+            onSubmitted: (String newName) {
+              setAccount(name: newName);
+            },
+            style: TextStyle(
+              fontSize: 16,
+              color: AppColor.blue(1),
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.right,
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(30),
+            ],
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(
             left: 16,
           ),
         ),
-        Avatar(
-          icon: AvatarIcon.koala,
-        )
+        if (icon == null)
+          SizedBox.shrink()
+        else
+          InkWell(
+            onTap: () {
+              int index = 0;
+              print(icons);
+              while (index < icons.length && icons[index].name != icon.name) {
+                index++;
+              }
+
+              index += 1;
+              index = index % icons.length;
+              setAccount(icon: icons[index]);
+            },
+            child: Avatar(
+              icon: icon,
+            ),
+          )
       ],
     );
   }
@@ -221,21 +282,9 @@ class FloatingFooter extends StatelessWidget {
                           iconPath: 'assets/icons/chat.svg',
                           name: tr('bottombar_chat_name'),
                           onTap: () {
-                            Scaffold.of(context)
-                              ..removeCurrentSnackBar()
-                              ..showSnackBar(
-                                SnackBar(
-                                  action: SnackBarAction(
-                                    label: "Close",
-                                    onPressed: () {},
-                                  ),
-                                  content: Text(tr("alert_unavailable")),
-                                ),
-                              );
-                            // TODO: Unhide these codes when chat feature has been available
-                            // HomeModel model =
-                            //     Provider.of<HomeModel>(context, listen: false);
-                            // model.currentPageIndex = 2;
+                            HomeModel model =
+                                Provider.of<HomeModel>(context, listen: false);
+                            model.currentPageIndex = 2;
                           },
                         ),
                       ),

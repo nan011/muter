@@ -33,7 +33,6 @@ class CurrentDistanceModel extends ChangeNotifier {
     if (longitude != null) {
       this._longitude = longitude;
     }
-    print("${this._latitude} ${this._longitude}");
     notifyListeners();
   }
 

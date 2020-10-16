@@ -17,6 +17,16 @@ class AvatarIcon {
   static const AvatarIcon transitionStation =
       AvatarIcon(name: 'transition-station.svg');
 
+  static const List<AvatarIcon> list = [
+    koala,
+    parrot,
+    rabbit,
+    snail,
+    frog,
+    normalStation,
+    transitionStation,
+  ];
+
   final String name;
 
   const AvatarIcon({
@@ -25,6 +35,15 @@ class AvatarIcon {
 
   static String getAssetPath(AvatarIcon icon) {
     return p.join(iconBasePath, icon.name);
+  }
+
+  static AvatarIcon getIconByName(String name) {
+    for (AvatarIcon icon in list) {
+      if (icon.name == name) {
+        return icon;
+      }
+    }
+    return null;
   }
 }
 

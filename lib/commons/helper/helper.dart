@@ -4,7 +4,10 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:muter/commons/widgets/Avatar/Avatar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
+import 'package:uuid/uuid.dart';
 import 'package:vector_math/vector_math.dart';
 import 'dart:math';
 
@@ -40,6 +43,19 @@ class AppShadow {
 }
 
 class Utility {
+  static const String APP_ID_KEY = "APP_ID_KEY";
+  static Future<String> getAppId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String appId = prefs.getString(APP_ID_KEY);
+
+    if (appId == null) {
+      appId = Uuid().v4();
+      prefs.setString(APP_ID_KEY, appId);
+    }
+
+    return appId;
+  }
+
   static double distanceTwoPointsOnEarth(Offset startPoint, Offset endPoint) {
     Offset startPointInRadian =
         Offset(radians(startPoint.dx), radians(startPoint.dy));
@@ -411,5 +427,39 @@ class VibrationSetting {
         ),
       ),
     );
+  }
+}
+
+class Account {
+  static String name;
+  static AvatarIcon icon;
+}
+
+class PushMessageCooldown {
+  static int _cooldown = 0;
+  static get cooldown => _cooldown;
+  static set cooldown(int newCooldown) {
+    if (newCooldown >= 0.0) {
+      _cooldown = newCooldown;
+
+      listeners.forEach((listener) => listener());
+      Timer.periodic(Duration(seconds: 1), (Timer timer) {
+        _cooldown -= 1;
+        listeners.forEach((listener) => listener());
+
+        if (_cooldown == 0) timer.cancel();
+      });
+    }
+  }
+
+  static List<VoidCallback> listeners = [];
+  static int addListener(VoidCallback listener) {
+    listeners.add(listener);
+    return listeners.length - 1;
+  }
+
+  static void removeListener(int index) {
+    if (listeners.length <= index) return;
+    listeners.removeAt(index);
   }
 }
