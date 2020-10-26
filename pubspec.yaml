@@ -50,6 +50,7 @@ dependencies:
   url_launcher: 5.7.2
   content_placeholder: 0.1.0
   uuid: 2.2.2
+  youtube_player_flutter: 7.0.0+7
 
 
 dev_dependencies:

@@ -1,8 +1,30 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:content_placeholder/content_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muter/commons/helper/helper.dart';
 
-class SignLanguage extends StatelessWidget {
+enum ContentViewType {
+  cards,
+  videos,
+}
+
+class SignLanguage extends StatefulWidget {
+  @override
+  _SignLanguageState createState() => _SignLanguageState();
+}
+
+class _SignLanguageState extends State<SignLanguage> {
+  SignCardsViewType cardViewType;
+  ContentViewType contentViewType;
+
+  @override
+  void initState() {
+    super.initState();
+    contentViewType = ContentViewType.cards;
+    cardViewType = SignCardsViewType.card;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,61 +33,307 @@ class SignLanguage extends StatelessWidget {
       padding: EdgeInsets.only(
         top: 24,
       ),
-      child: SignCards(
-        cards: [
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () {
+                    if (contentViewType == ContentViewType.cards) return;
+
+                    setState(() {
+                      contentViewType = ContentViewType.cards;
+                    });
+                  },
+                  child: SignCategoryIcon(
+                    iconUrl: "assets/icons/cards.svg",
+                    chosen: contentViewType == ContentViewType.cards,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 4,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (contentViewType == ContentViewType.videos) return;
+
+                    setState(() {
+                      contentViewType = ContentViewType.videos;
+                    });
+                  },
+                  child: SignCategoryIcon(
+                    iconUrl: "assets/icons/play.svg",
+                    chosen: contentViewType == ContentViewType.videos,
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox.shrink(),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (cardViewType == SignCardsViewType.list) return;
+
+                    setState(() {
+                      cardViewType = SignCardsViewType.list;
+                    });
+                  },
+                  child: SignCategoryIcon(
+                    iconUrl: "assets/icons/list-view.svg",
+                    chosen: this.cardViewType == SignCardsViewType.list,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 4,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    if (cardViewType == SignCardsViewType.card) return;
+
+                    setState(() {
+                      cardViewType = SignCardsViewType.card;
+                    });
+                  },
+                  child: SignCategoryIcon(
+                    iconUrl: "assets/icons/card-view.svg",
+                    chosen: this.cardViewType == SignCardsViewType.card,
+                  ),
+                ),
+              ],
+            ),
           ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
+          Padding(
+            padding: EdgeInsets.only(
+              top: 16,
+            ),
           ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
-          ),
-          SignCardData(
-            imageUrl: "assets/signs/alphabet-c.png",
-            name: "Alphabet C",
+          Expanded(
+            flex: 1,
+            child: Visibility(
+              replacement: Column(
+                children: [
+                  // Video(
+                  //   url:
+                  // ),
+                ],
+              ),
+              visible: contentViewType == ContentViewType.cards,
+              child: SignCards(
+                viewType: cardViewType,
+                viewTypeOnChange: (SignCardsViewType viewType) {
+                  setState(() {
+                    cardViewType = viewType;
+                  });
+                },
+                cards: [
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1vmyUPpBg5QrHNCB2t76-dUHEcA3y7Re2",
+                    name: "Stasiun Sawah Besar",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=13NxNHIoKnX3YVx3p9NQAAoXPuKRdGm2O",
+                    name: "Stasiun Rawa Buaya",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=13-7WzBCDkJ-wFqGi4ftrZ5KjgT9PqI85",
+                    name: "Stasiun Sudirman Baru",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1IAhI0qaZPsAQED4569oHGM_5VQHevPw5",
+                    name: "Stasiun Tebet",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1MRM2khBhwHR3q42zYGRKg9oa23hb5fwi",
+                    name: "Stasiun Pondok Cina",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1QQcu5URZpOUEAsMttZhAx79jNTbmMy5Q",
+                    name: "Stasiun Mangga Besar",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1nHjvqdT1a2vq6WHdlMSRDbRQUQR4gebY",
+                    name: "Stasiun Pasar Minggu Baru",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=13rs-HenJuc6Kn4qUbGjEv2y3Glqr0dO5",
+                    name: "Stasiun Pasar Minggu",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1AA2zJnbsYfrd0nfnWfA8NNR8mCvyz10s",
+                    name: "Stasiun Lenteng Agung",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1pm0X8RsBhuaoNlmmAKgvd-c4kdS5ogJp",
+                    name: "Stasiun Juanda",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1P9xusI7_H1r5U78l8bKrYwXU1Z-qE338",
+                    name: "Stasiun Kalibata",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1Fv6BhZThwuPB49yMG14VbJwqsMJ0yRlj",
+                    name: "Stasiun Jayakarta",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1lkxRAdkrtBKRMp8mW__l4OWiJEiJ7AZU",
+                    name: "Stasiun Jakarta Kota",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1VVetAKpW2_MrDVzkOkzBshNLfFzHwheT",
+                    name: "Stasiun Gondangdia",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1bVZ2PHU_VMilxLsqCdwejZO-fNzycAMQ",
+                    name: "Stasiun Gambir",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1nTXS_J21HuCNsh4BO0ioiU7ewfIvqnI3",
+                    name: "Stasiun Depok Baru",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1_i0BunzeTyDr5BbPKuOE6nMhjK5yoCln",
+                    name: "Stasiun Citayam",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1kQQqWik_eMH1yZx7puQKhRvZyYOx9QEo",
+                    name: "Stasiun Cilebut",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1P747_zfYdC-jMigH7mktbWdjpQuwPMII",
+                    name: "Stasiun Cikini",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1C5smI3EObk7mNXw1E-iNv7CDZY5QOJ69",
+                    name: "Stasiun Kemayoran",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1Vr1TjlBSEBEZfC6OWetiJJo_KzW6Mrf0",
+                    name: "Stasiun Rajawali",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1zrlU22EqxwANzIrNi1qbBs1nZhBcckGA",
+                    name: "Stasiun Jatinegara",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1pagDEG0GkZw680pSKW4GYSfcHsTlZ02J",
+                    name: "Stasiun Cawang",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1Nm9SQhjne2JG8gDzhKdNuutZg9rvLAI8",
+                    name: "Stasiun Pasar Senen",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1X8iODzaeZ3_BNqThsh6XfZFLvoRp_Bx8",
+                    name: "Stasiun Depok",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1S8x9QgKxvbH-DO9zXgFDVpJKTPzJdv64",
+                    name: "Stasiun Bogor",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1QKLr7MjOj7s9xUaV5hjuwJz5BM9UAE03",
+                    name: "Stasiun Pancasila",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1OXrQkyhpTY-irYx8CfQ4DCzuQwhONGJ9",
+                    name: "Stasiun Bojong Gede",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1Gh-j2sNa3ZFOHLdAKA8FKPKnsQBJAXmi",
+                    name: "Stasiun Manggarai",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=15By-AuiEFD11Re8GKCsymxnGHZKmKQ2I",
+                    name: "Stasiun Bekasi",
+                  ),
+                  SignCardData(
+                    imageUrl:
+                        "https://drive.google.com/uc?id=1F0gXsA7chjyuMT8mWd-ws6l8r26AaVFv",
+                    name: "Stasiun UI",
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CardVideo extends StatefulWidget {
+  final String url;
+
+  CardVideo({
+    Key key,
+    this.url,
+  }) : super(key: key);
+
+  @override
+  _CardVideoState createState() => _CardVideoState();
+}
+
+class _CardVideoState extends State<CardVideo> {
+  bool hasLoaded;
+
+  @override
+  void initState() {
+    hasLoaded = false;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: CachedNetworkImage(
+        imageUrl: widget.url,
+        placeholder: (BuildContext context, __) {
+          return SizedBox.expand(
+            child: ContentPlaceholder(),
+          );
+        },
+        height: MediaQuery.of(context).size.height,
+        fit: BoxFit.cover,
       ),
     );
   }
@@ -86,14 +354,19 @@ class SignCardData {
   });
 }
 
+typedef CardOnSelect = Function(int index);
+typedef CardViewTypeOnChange = Function(SignCardsViewType viewType);
+
 class SignCards extends StatefulWidget {
-  final SignCardsViewType initialViewType;
+  final SignCardsViewType viewType;
   final List<SignCardData> cards;
+  final CardViewTypeOnChange viewTypeOnChange;
 
   SignCards({
     Key key,
-    this.initialViewType = SignCardsViewType.card,
+    this.viewType = SignCardsViewType.card,
     this.cards,
+    this.viewTypeOnChange,
   }) : super(key: key);
 
   @override
@@ -101,96 +374,43 @@ class SignCards extends StatefulWidget {
 }
 
 class _SignCardsState extends State<SignCards> {
-  SignCardsViewType viewType;
-  int cardViewInitialIndex;
+  int initialIndex;
 
   @override
   void initState() {
     super.initState();
-    viewType = widget.initialViewType;
+    initialIndex = 0;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(
-              horizontal: 16,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Visibility(
+            visible: widget.viewType == SignCardsViewType.card,
+            replacement: CardList(
+              signCards: widget.cards,
+              onSelect: (int index) {
+                widget.viewTypeOnChange(SignCardsViewType.card);
+                setState(() {
+                  initialIndex = index;
+                });
+              },
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                InkWell(
-                  onTap: () {
-                    if (viewType == SignCardsViewType.list) return;
-
-                    setState(() {
-                      viewType = SignCardsViewType.list;
-                    });
-                  },
-                  child: SignCardViewIcon(
-                    iconUrl: "assets/icons/list-view.svg",
-                    chosen: this.viewType == SignCardsViewType.list,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 4,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    if (viewType == SignCardsViewType.card) return;
-
-                    setState(() {
-                      viewType = SignCardsViewType.card;
-                    });
-                  },
-                  child: SignCardViewIcon(
-                    iconUrl: "assets/icons/card-view.svg",
-                    chosen: this.viewType == SignCardsViewType.card,
-                  ),
-                ),
-              ],
+            child: CardsView(
+              initialIndex: initialIndex,
+              signCards: widget.cards,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 16,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Visibility(
-              visible: viewType == SignCardsViewType.card,
-              replacement: CardList(
-                signCards: widget.cards,
-                onSelect: (int index) => {
-                  setState(() {
-                    viewType = SignCardsViewType.card;
-                    cardViewInitialIndex = index;
-                  })
-                },
-              ),
-              child: CardsView(
-                initialIndex: cardViewInitialIndex,
-                signCards: widget.cards,
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }
-
-typedef CardOnSelect = Function(int index);
 
 class CardList extends StatelessWidget {
   final List<SignCardData> signCards;
@@ -226,7 +446,7 @@ class CardList extends StatelessWidget {
                         onSelect(index);
                       },
                       child: Container(
-                        width: 100,
+                        width: 110,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: AppColor.white(1),
@@ -239,35 +459,10 @@ class CardList extends StatelessWidget {
                           child: Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.all(16),
-                                child: Image.asset(
-                                  data.imageUrl,
-                                  height: 80,
+                                height: 120,
+                                child: CardVideo(
+                                  url: data.imageUrl,
                                 ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: SvgPicture.asset(
-                                      'assets/arts/line-wave.svg',
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.only(
-                                        left: 8,
-                                        bottom: 4,
-                                      ),
-                                      child: SvgPicture.asset(
-                                        'assets/arts/wave.svg',
-                                      ),
-                                    ),
-                                  ),
-                                ],
                               ),
                               Container(
                                 padding: EdgeInsets.all(8),
@@ -304,8 +499,8 @@ class CardsView extends StatefulWidget {
 
   const CardsView({
     Key key,
-    this.initialIndex,
     @required this.signCards,
+    @required this.initialIndex,
   }) : super(key: key);
 
   @override
@@ -382,64 +577,40 @@ class SignCard extends StatelessWidget {
         right: 8,
         bottom: 100,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: AppColor.white(1),
-          boxShadow: [
-            AppShadow.normalShadow,
-          ],
-        ),
-        child: IntrinsicHeight(
-          child: Column(
-            children: [
-              Image.asset(
-                this.signCardData.imageUrl,
-                width: MediaQuery.of(context).size.width * 0.8,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 8,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: SvgPicture.asset(
-                      'assets/arts/line-wave.svg',
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.only(
-                        left: 8,
-                        bottom: 4,
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/arts/wave.svg',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.all(16),
-                alignment: Alignment.center,
-                child: Text(
-                  this.signCardData.name,
-                  style: TextStyle(
-                    color: AppColor.black(1),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4),
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColor.white(1),
+            boxShadow: [
+              AppShadow.normalShadow,
             ],
+          ),
+          child: IntrinsicHeight(
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: 350,
+                  child: CardVideo(
+                    url: signCardData.imageUrl,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16),
+                  alignment: Alignment.center,
+                  child: Text(
+                    this.signCardData.name,
+                    style: TextStyle(
+                      color: AppColor.black(1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -447,11 +618,11 @@ class SignCard extends StatelessWidget {
   }
 }
 
-class SignCardViewIcon extends StatelessWidget {
+class SignCategoryIcon extends StatelessWidget {
   final String iconUrl;
   final bool chosen;
 
-  SignCardViewIcon({
+  SignCategoryIcon({
     this.iconUrl,
     this.chosen = false,
   });
