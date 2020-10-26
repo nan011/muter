@@ -3,11 +3,170 @@ import 'package:content_placeholder/content_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:muter/commons/helper/helper.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 enum ContentViewType {
   cards,
   videos,
 }
+
+List<SignCardData> signCards = [
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1vmyUPpBg5QrHNCB2t76-dUHEcA3y7Re2",
+    name: "Stasiun Sawah Besar",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=13NxNHIoKnX3YVx3p9NQAAoXPuKRdGm2O",
+    name: "Stasiun Rawa Buaya",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=13-7WzBCDkJ-wFqGi4ftrZ5KjgT9PqI85",
+    name: "Stasiun Sudirman Baru",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1IAhI0qaZPsAQED4569oHGM_5VQHevPw5",
+    name: "Stasiun Tebet",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1MRM2khBhwHR3q42zYGRKg9oa23hb5fwi",
+    name: "Stasiun Pondok Cina",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1QQcu5URZpOUEAsMttZhAx79jNTbmMy5Q",
+    name: "Stasiun Mangga Besar",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1nHjvqdT1a2vq6WHdlMSRDbRQUQR4gebY",
+    name: "Stasiun Pasar Minggu Baru",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=13rs-HenJuc6Kn4qUbGjEv2y3Glqr0dO5",
+    name: "Stasiun Pasar Minggu",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1AA2zJnbsYfrd0nfnWfA8NNR8mCvyz10s",
+    name: "Stasiun Lenteng Agung",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1pm0X8RsBhuaoNlmmAKgvd-c4kdS5ogJp",
+    name: "Stasiun Juanda",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1P9xusI7_H1r5U78l8bKrYwXU1Z-qE338",
+    name: "Stasiun Kalibata",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1Fv6BhZThwuPB49yMG14VbJwqsMJ0yRlj",
+    name: "Stasiun Jayakarta",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1lkxRAdkrtBKRMp8mW__l4OWiJEiJ7AZU",
+    name: "Stasiun Jakarta Kota",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1VVetAKpW2_MrDVzkOkzBshNLfFzHwheT",
+    name: "Stasiun Gondangdia",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1bVZ2PHU_VMilxLsqCdwejZO-fNzycAMQ",
+    name: "Stasiun Gambir",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1nTXS_J21HuCNsh4BO0ioiU7ewfIvqnI3",
+    name: "Stasiun Depok Baru",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1_i0BunzeTyDr5BbPKuOE6nMhjK5yoCln",
+    name: "Stasiun Citayam",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1kQQqWik_eMH1yZx7puQKhRvZyYOx9QEo",
+    name: "Stasiun Cilebut",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1P747_zfYdC-jMigH7mktbWdjpQuwPMII",
+    name: "Stasiun Cikini",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1C5smI3EObk7mNXw1E-iNv7CDZY5QOJ69",
+    name: "Stasiun Kemayoran",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1Vr1TjlBSEBEZfC6OWetiJJo_KzW6Mrf0",
+    name: "Stasiun Rajawali",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1zrlU22EqxwANzIrNi1qbBs1nZhBcckGA",
+    name: "Stasiun Jatinegara",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1pagDEG0GkZw680pSKW4GYSfcHsTlZ02J",
+    name: "Stasiun Cawang",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1Nm9SQhjne2JG8gDzhKdNuutZg9rvLAI8",
+    name: "Stasiun Pasar Senen",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1X8iODzaeZ3_BNqThsh6XfZFLvoRp_Bx8",
+    name: "Stasiun Depok",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1S8x9QgKxvbH-DO9zXgFDVpJKTPzJdv64",
+    name: "Stasiun Bogor",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1QKLr7MjOj7s9xUaV5hjuwJz5BM9UAE03",
+    name: "Stasiun Pancasila",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1OXrQkyhpTY-irYx8CfQ4DCzuQwhONGJ9",
+    name: "Stasiun Bojong Gede",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1Gh-j2sNa3ZFOHLdAKA8FKPKnsQBJAXmi",
+    name: "Stasiun Manggarai",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=15By-AuiEFD11Re8GKCsymxnGHZKmKQ2I",
+    name: "Stasiun Bekasi",
+  ),
+  SignCardData(
+    imageUrl:
+        "https://drive.google.com/uc?id=1F0gXsA7chjyuMT8mWd-ws6l8r26AaVFv",
+    name: "Stasiun UI",
+  ),
+];
 
 class SignLanguage extends StatefulWidget {
   @override
@@ -119,11 +278,14 @@ class _SignLanguageState extends State<SignLanguage> {
           Expanded(
             flex: 1,
             child: Visibility(
-              replacement: Column(
+              replacement: ListView(
+                padding: EdgeInsets.only(
+                  bottom: 120,
+                ),
                 children: [
-                  // Video(
-                  //   url:
-                  // ),
+                  Video(youtubeId: 'z1rE8HdiP1o'),
+                  Video(youtubeId: 'Im2AOi7bEWs'),
+                  Video(youtubeId: 'hea5--m4h1s'),
                 ],
               ),
               visible: contentViewType == ContentViewType.cards,
@@ -134,169 +296,64 @@ class _SignLanguageState extends State<SignLanguage> {
                     cardViewType = viewType;
                   });
                 },
-                cards: [
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1vmyUPpBg5QrHNCB2t76-dUHEcA3y7Re2",
-                    name: "Stasiun Sawah Besar",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=13NxNHIoKnX3YVx3p9NQAAoXPuKRdGm2O",
-                    name: "Stasiun Rawa Buaya",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=13-7WzBCDkJ-wFqGi4ftrZ5KjgT9PqI85",
-                    name: "Stasiun Sudirman Baru",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1IAhI0qaZPsAQED4569oHGM_5VQHevPw5",
-                    name: "Stasiun Tebet",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1MRM2khBhwHR3q42zYGRKg9oa23hb5fwi",
-                    name: "Stasiun Pondok Cina",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1QQcu5URZpOUEAsMttZhAx79jNTbmMy5Q",
-                    name: "Stasiun Mangga Besar",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1nHjvqdT1a2vq6WHdlMSRDbRQUQR4gebY",
-                    name: "Stasiun Pasar Minggu Baru",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=13rs-HenJuc6Kn4qUbGjEv2y3Glqr0dO5",
-                    name: "Stasiun Pasar Minggu",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1AA2zJnbsYfrd0nfnWfA8NNR8mCvyz10s",
-                    name: "Stasiun Lenteng Agung",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1pm0X8RsBhuaoNlmmAKgvd-c4kdS5ogJp",
-                    name: "Stasiun Juanda",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1P9xusI7_H1r5U78l8bKrYwXU1Z-qE338",
-                    name: "Stasiun Kalibata",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1Fv6BhZThwuPB49yMG14VbJwqsMJ0yRlj",
-                    name: "Stasiun Jayakarta",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1lkxRAdkrtBKRMp8mW__l4OWiJEiJ7AZU",
-                    name: "Stasiun Jakarta Kota",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1VVetAKpW2_MrDVzkOkzBshNLfFzHwheT",
-                    name: "Stasiun Gondangdia",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1bVZ2PHU_VMilxLsqCdwejZO-fNzycAMQ",
-                    name: "Stasiun Gambir",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1nTXS_J21HuCNsh4BO0ioiU7ewfIvqnI3",
-                    name: "Stasiun Depok Baru",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1_i0BunzeTyDr5BbPKuOE6nMhjK5yoCln",
-                    name: "Stasiun Citayam",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1kQQqWik_eMH1yZx7puQKhRvZyYOx9QEo",
-                    name: "Stasiun Cilebut",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1P747_zfYdC-jMigH7mktbWdjpQuwPMII",
-                    name: "Stasiun Cikini",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1C5smI3EObk7mNXw1E-iNv7CDZY5QOJ69",
-                    name: "Stasiun Kemayoran",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1Vr1TjlBSEBEZfC6OWetiJJo_KzW6Mrf0",
-                    name: "Stasiun Rajawali",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1zrlU22EqxwANzIrNi1qbBs1nZhBcckGA",
-                    name: "Stasiun Jatinegara",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1pagDEG0GkZw680pSKW4GYSfcHsTlZ02J",
-                    name: "Stasiun Cawang",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1Nm9SQhjne2JG8gDzhKdNuutZg9rvLAI8",
-                    name: "Stasiun Pasar Senen",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1X8iODzaeZ3_BNqThsh6XfZFLvoRp_Bx8",
-                    name: "Stasiun Depok",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1S8x9QgKxvbH-DO9zXgFDVpJKTPzJdv64",
-                    name: "Stasiun Bogor",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1QKLr7MjOj7s9xUaV5hjuwJz5BM9UAE03",
-                    name: "Stasiun Pancasila",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1OXrQkyhpTY-irYx8CfQ4DCzuQwhONGJ9",
-                    name: "Stasiun Bojong Gede",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1Gh-j2sNa3ZFOHLdAKA8FKPKnsQBJAXmi",
-                    name: "Stasiun Manggarai",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=15By-AuiEFD11Re8GKCsymxnGHZKmKQ2I",
-                    name: "Stasiun Bekasi",
-                  ),
-                  SignCardData(
-                    imageUrl:
-                        "https://drive.google.com/uc?id=1F0gXsA7chjyuMT8mWd-ws6l8r26AaVFv",
-                    name: "Stasiun UI",
-                  ),
-                ],
+                cards: signCards,
               ),
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+class Video extends StatefulWidget {
+  final String youtubeId;
+  Video({
+    Key key,
+    this.youtubeId,
+  }) : super(key: key);
+
+  @override
+  _VideoState createState() => _VideoState();
+}
+
+class _VideoState extends State<Video> {
+  YoutubePlayerController controller;
+
+  @override
+  void initState() {
+    controller = YoutubePlayerController(
+      initialVideoId: widget.youtubeId,
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+        mute: true,
+        enableCaption: false,
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return YoutubePlayerBuilder(
+        player: YoutubePlayer(
+          controller: controller,
+          liveUIColor: AppColor.blue(1),
+          showVideoProgressIndicator: true,
+          progressIndicatorColor: AppColor.blue(1),
+          bottomActions: [
+            CurrentPosition(),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 16,
+              ),
+            ),
+            ProgressBar(isExpanded: true),
+          ],
+        ),
+        builder: (BuildContext context, Widget player) {
+          return player;
+        });
   }
 }
 
